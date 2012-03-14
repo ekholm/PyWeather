@@ -1,6 +1,6 @@
 # Copyrighted 2011 - 2012 Mattias Ekholm <code@ekholm.se>
 
-NAME=plasma_pyweather
+NAME=PyWeather
 RES=resource
 UI=main config
 

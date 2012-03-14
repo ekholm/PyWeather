@@ -2,7 +2,6 @@
 
 Encoding=UTF-8
 Name=AAAAA Plasma PyWeather
-Name[de]=Plasma PyWeather
 Comment=Shows weather from google.com
 Type=Service
 ServiceTypes=Plasma/Applet
@@ -15,7 +14,7 @@ X-KDE-PluginInfo-Author=Hardik Mehta
 X-KDE-PluginInfo-Email=hard.mehta@gmail.com
 X-KDE-PluginInfo-Website=http://hardikmehta.wordpress.com/
 
-X-KDE-PluginInfo-Name=plasma_pyweather
+X-KDE-PluginInfo-Name=PyWeather
 X-KDE-PluginInfo-Version=1.7
 X-KDE-PluginInfo-Category=Weather
 X-KDE-PluginInfo-Depends=
