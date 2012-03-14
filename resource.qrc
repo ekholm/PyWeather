@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/"> 
+        <file>forms/main.ui</file>
+        <file>forms/config.ui</file>
+
+        <file>images/sunny.svg</file>
+        <file>images/showers.svg</file>
+        <file>images/not-available.svg</file>
+        <file>images/cloudy.svg</file>
+        <file>images/thunderstorms.svg</file>
+        <file>images/haze.svg</file>
+        <file>images/windy.svg</file>
+        <file>images/foggy.svg</file>
+        <file>images/smoky.svg</file>
+        <file>images/snow.svg</file>
+    </qresource>
+</RCC>
