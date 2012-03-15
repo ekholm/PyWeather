@@ -2,6 +2,9 @@
 #######################################################
 #
 # @Author: Hardik Mehta <hard.mehta@gmail.com>
+#X-KDE-PluginInfo-Author=Hardik Mehta
+#X-KDE-PluginInfo-Email=hard.mehta@gmail.com
+#X-KDE-PluginInfo-Website=http://hardikmehta.wordpress.com/
 #    Classes: Info, Weather
 # ...and Mattias Ekholm <code@ekholm.se>
 #    rest of the code and updates to the Info and Weather classes

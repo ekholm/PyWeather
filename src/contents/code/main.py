@@ -8,17 +8,13 @@ import PyKDE4
 from PyQtAbstractions import *
 
 import app_resource
-
 import weather
 
 QtGui.QApplication.setApplicationName('weather')
 
-class AppWidget(PyKDE4.AppWidget):
-    pass
-
 class Main(PyKDE4.Applet):
     _mainForm  = ":/forms/main.ui"
-
+        
     def _connectUI(self):
         self._settings.beginGroup("general")
         self._country = self._settings.value('country', 'Sweden')
