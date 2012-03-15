@@ -1,0 +1,4 @@
+#!/bin/sh
+
+(cd ../PyQtAbstractions/project; make install) &&
+make test

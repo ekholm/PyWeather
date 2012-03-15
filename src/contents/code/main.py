@@ -4,15 +4,22 @@
 # Licence is LGPL 2, with following restrictions
 # * Modications to this file must be reported to above email
  
+#import PyQt4
 import PyKDE4
-from PyQtAbstractions import *
+try:
+    from PyQtAbstractions import *
+except:
+    print "You need to install PyQtAbstractions from https://github.com/ekholm/PyQtAbstractions/"
+    sys.exit(1)
 
-import app_resource
+if Qt.isPySide: import pyside_resource
+if Qt.isPyQt4:  import pyqt4_resource
+
 import weather
 
 QtGui.QApplication.setApplicationName('weather')
 
-class Main(PyKDE4.Applet):
+class Main(Qt.MainObject):
     _mainForm  = ":/forms/main.ui"
         
     def _connectUI(self):
@@ -22,8 +29,8 @@ class Main(PyKDE4.Applet):
         self._unit    = self._settings.value('unit',    'Metric')
         self._settings.endGroup()
 
-        self.setHasConfigurationInterface(True)
-        self.setAspectRatioMode(Plasma.IgnoreAspectRatio)
+        if Qt.isPyKDE4: self.setHasConfigurationInterface(True)
+        if Qt.isPyKDE4: self.setAspectRatioMode(Plasma.IgnoreAspectRatio)
 
         self.checkWeather()
 
@@ -94,3 +101,8 @@ class Main(PyKDE4.Applet):
 def CreateApplet(parent):
     return Main(parent)
 
+if __name__ == '__main__':
+    app = Qt.Application("qrSign", "0.9", "ekholm.se", "Mattias Ekholm", sys.argv)
+    m = Main()
+    m.show()
+    app.exec_()

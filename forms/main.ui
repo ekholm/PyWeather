@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AppWidget</class>
- <widget class="AppWidget" name="AppWidget">
+ <class>MainWindow</class>
+ <widget class="MainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -595,7 +595,7 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>AppWidget</class>
+   <class>MainWindow</class>
    <extends>QWidget</extends>
    <header>PyQtAbstractions/Qt</header>
    <container>1</container>

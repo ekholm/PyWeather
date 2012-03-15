@@ -1,27 +1,53 @@
 # Copyrighted 2011 - 2012 Mattias Ekholm <code@ekholm.se>
 
 NAME=PyWeather
-RES=resource
-UI=main config
+RES=pyqt4
 
-all: resources plasmoid
+SRC=src/contents/code
 
-forms: $(patsubst %,src/contents/code/form_%.py,$(UI))
-src/contents/code/form_%.py: forms/%.ui
-	@echo buildning ui form file: $@
-	@pykdeuic4 -o $@ $<
+UI_FILES=$(wildcard forms/*.ui)
+RES_FILES=$(patsubst %,$(SRC)/%_resource.py,$(RES)) 
 
-resources: $(patsubst %,src/contents/code/app_%.py,$(RES)) 
-src/contents/code/app_resource.py: $(patsubst %,%.qrc,$(RES)) $(patsubst %,forms/%.ui,$(UI))
-	@echo buildning resource file: $@
+all: $(RES_FILES) $(UI_FILES)
+	@echo "Creating plasmoid \"$(NAME)\""
+	@(cd src; zip -q -r ../$(NAME).plasmoid .)
+
+resources: $(RES_FILES)
+$(SRC)/pyqt4_resource.py: resource.qrc $(UI_FILES)
+	@echo "buildning resource file: \"$@\""
 	@pyrcc4 -o $@ $<
+
+$(SRC)/pyside_resource.py: resource.qrc $(UI_FILES)
+	@echo "buildning resource file: \"$@\""
+	@pyside-rcc -o $@ $<
+
+.PHONY: resource.qrc
+resource.qrc: cleanRes
+	@echo "<RCC>" > $@
+	@echo "  <qresource prefix=\"/\">" >> $@
+	@find forms  -type f | awk  '{printf("    <file>%s</file>\n", $$1)}' >> $@
+	@find images -type f | awk  '{printf("    <file>%s</file>\n", $$1)}' >> $@
+	@find icons  -type f | awk  '{printf("    <file>%s</file>\n", $$1)}' >> $@
+	@echo "  </qresource>" >> $@
+	@echo "</RCC>" >> $@
+
+cleanRes:
+	@find . -name '*~'         -exec rm '{}' \;
+
+clean:
+	@rm -f $(NAME).plasmoid
+	@find . -name 'resource.qrc' -exec rm '{}' \;
+	@find . -name '.zip' -exec rm '{}' \;
+	@find . -name '.pyc' -exec rm '{}' \;
+	@find . -name '*~'   -exec rm '{}' \;
+	@find . -name '*_resource.py*' -exec rm '{}' \;
+	@find . -name '*_resource.py*' -exec rm '{}' \;
+
+
+
 
 test: resources
 	plasmoidviewer src
-
-plasmoid: # clean
-	@echo buildning $@
-	@(cd src; zip -q -r ../$(NAME).$@ .)
 
 remove:
 	plasmapkg -r $(NAME)
@@ -29,10 +55,3 @@ remove:
 install: clean remove all
 	plasmapkg -i $(NAME).plasmoid
 
-clean:
-	@rm -f $(NAME).plasmoid
-	@find . -name '.zip' -exec rm '{}' \;
-	@find . -name '.pyc' -exec rm '{}' \;
-	@find . -name '*~'   -exec rm '{}' \;
-	@find . -name 'app_*.py*' -exec rm '{}' \;
-	@find . -name 'form_*.py*' -exec rm '{}' \;
