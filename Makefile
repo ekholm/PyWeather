@@ -14,15 +14,16 @@ all: $(RES_FILES) $(UI_FILES)
 
 resources: $(RES_FILES)
 $(SRC)/pyqt4_resource.py: resource.qrc $(UI_FILES)
-	@echo "buildning resource file: \"$@\""
+	@echo "Buildning resource file: \"$@\""
 	@pyrcc4 -o $@ $<
 
 $(SRC)/pyside_resource.py: resource.qrc $(UI_FILES)
-	@echo "buildning resource file: \"$@\""
+	@echo "Buildning resource file: \"$@\""
 	@pyside-rcc -o $@ $<
 
 .PHONY: resource.qrc
 resource.qrc: cleanRes
+	@echo "Generating resource file \"$@\""
 	@echo "<RCC>" > $@
 	@echo "  <qresource prefix=\"/\">" >> $@
 	@find forms  -type f | awk  '{printf("    <file>%s</file>\n", $$1)}' >> $@
@@ -35,6 +36,7 @@ cleanRes:
 	@find . -name '*~'         -exec rm '{}' \;
 
 clean:
+	@echo "Cleaning"
 	@rm -f $(NAME).plasmoid
 	@find . -name 'resource.qrc' -exec rm '{}' \;
 	@find . -name '.zip' -exec rm '{}' \;
